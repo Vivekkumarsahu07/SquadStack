@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>SquadStack Live</title>
+    <meta charset="utf-8">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="assets/css/main2.css">
+    <style>
+        /* Define your CSS styles here */
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header id="header" class="alt">
+        <div class="logo"><a href="index.html">ScoreSquad<span>Live</span></a></div>
+        <a href="#menu" class="toggle"><span>Menu</span></a>
+    </header><!-- Nav -->
+    <nav id="menu">
+        <ul class="links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="blogs.html">Blogs</a></li>
+            <li><a href="Live score.html">Match Points table</a></li>
+            <li><a href="leaderboard.html">Players Leaderboard</a></li>
+            <li><a href="make tactics.html">Make Tactics</a></li>
+        </ul>
+    </nav>
+    <section class="wrapper style3">
+        <div class="ScoreCard">
+            <div class="inner">
+                <header class="align-center"></header>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Score Section -->
+    <section id="live-score" class="wrapper style3">
+        <div class="inner">
+            <div id="flexgrid">
+            </div>
+        </div>
+    </section>
+
+    <!-- Buttons for sliding -->
+    <div class="slider-buttons">
+        <button id="slide-left">&lt;</button>
+        <button id="slide-right">&gt;</button>
+    </div>
+
+    <div class="copyright">
+        Powered by: <a href="">SquadStack</a>.
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/skel.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <!-- JavaScript for dynamically populating the live score section and sliding -->
+    <script>
+        const matches = [
+            { match: "Match 1", teams: "Team A vs. Team B", score: "2 - 1", status: "Full Time" },
+            { match: "Match 2", teams: "Team C vs. Team D", score: "0 - 0", status: "Half Time" },
+            { match: "Match 3", teams: "Team E vs. Team F", score: "1 - 2", status: "Second Half" },
+            { match: "Match 4", teams: "Team G vs. Team H", score: "3 - 2", status: "Second Half" },
+            { match: "Match 5", teams: "Team I vs. Team J", score: "0 - 1", status: "First Half" },
+            { match: "Match 6", teams: "Team K vs. Team L", score: "1 - 1", status: "First Half" },
+            { match: "Match 7", teams: "Team M vs. Team N", score: "2 - 0", status: "Full Time" },
+            { match: "Match 8", teams: "Team O vs. Team P", score: "1 - 3", status: "Half Time" }
+        ];
+
+        const flexgrid = document.getElementById("flexgrid");
+        const slideLeftButton = document.getElementById("slide-left");
+        const slideRightButton = document.getElementById("slide-right");
+        let currentIndex = 0;
+
+        function showMatches() {
+            flexgrid.innerHTML = '';
+            for (let i = currentIndex; i < currentIndex + 3; i++) {
+                if (i < matches.length) {
+                    const matchCard = document.createElement("div");
+                    matchCard.classList.add("match");
+                    matchCard.innerHTML = `
+                        <h2>${matches[i].match}</h2>
+                        <p>${matches[i].teams}</p>
+                        <p>Score: ${matches[i].score}</p>
+                        <p>Status: ${matches[i].status}</p>
+                    `;
+                    flexgrid.appendChild(matchCard);
+                }
+            }
+        }
+
+        function slideLeft() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                showMatches();
+            }
+        }
+
+        function slideRight() {
+            if (currentIndex < matches.length - 3) {
+                currentIndex++;
+                showMatches();
+            }
+        }
+
+        slideLeftButton.addEventListener("click", slideLeft);
+        slideRightButton.addEventListener("click", slideRight);
+
+        showMatches();
+    </script>
+</body>
+
+</html>
